@@ -3,15 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animation d'Images avec Son</title>
+    <title>PIGEONNNNNNNNNNNNNN</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <audio id="background-audio" autoplay loop>
+    <!-- Barre d'information moderne -->
+    <div id="info-bar" class="visible">
+        <div class="info-bar-content">
+            <img id="qr-code" src="img/qrcode.png" alt="QR Code">
+            <div class="info-bar-text">
+                <strong>PROFITEZ DES SUPERBES PIGEONS PARTOUT !</strong> <br>
+                Téléchargez l'application pour smartphone Android pour voir ces superbes oiseaux partout où vous allez sur https://l.pinou007.fr/pigonApplication.
+            </div>
+            <button id="close-bar">Fermer</button>
+        </div>
+    </div>
+
+    <!-- Lecture audio -->
+    <audio id="background-audio" loop autoplay>
         <source src="https://pinou007.fr/doc/song/pigon.mp3" type="audio/mpeg">
         Votre navigateur ne supporte pas la lecture audio.
     </audio>
+
+    <!-- Conteneur pour les animations -->
     <div id="animation-container"></div>
+
     <script src="script.js"></script>
 </body>
 </html>
