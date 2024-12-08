@@ -1,59 +1,72 @@
-// Initialisation du conteneur et des images
-const container = document.getElementById('animation-container');
-const images = Array.from({ length: 30 }, (_, i) => `img/image${i + 1}.jpg`);
-let currentImageIndex = -1;
+// Constantes et éléments du DOM
+const TOTAL_IMAGES = 30; // Nombre d'images disponibles
+const background = document.querySelector('.background');
+const foreground = document.querySelector('.foreground');
+const audio = document.getElementById('backgroundMusic');
+const popup = document.getElementById('popup');
 
-// Fonction pour afficher une image avec une animation aléatoire
-function showRandomImage() {
-    let randomIndex;
-    do {
-        randomIndex = Math.floor(Math.random() * images.length);
-    } while (randomIndex === currentImageIndex);
-    currentImageIndex = randomIndex;
-
-    const img = document.createElement('img');
-    img.src = images[randomIndex];
-
-    const animations = ['fade-in', 'zoom-in', 'rotate'];
-    const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-    img.classList.add(randomAnimation);
-
-    container.appendChild(img);
-
-    setTimeout(() => {
-        img.style.opacity = 1;
-    }, 50);
-
-    setTimeout(() => {
-        img.style.opacity = 0;
-        setTimeout(() => {
-            container.removeChild(img);
-        }, 1000);
-    }, 4000);
+// Fonction pour passer en plein écran
+function enableFullscreen() {
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen(); // Activer le mode plein écran
+    }
 }
 
-// Lancer les animations d'images à intervalles réguliers
-setInterval(showRandomImage, 4500);
-
-// Gestion de l'audio
-const audio = document.getElementById('background-audio');
-
-// Démarrer la musique automatiquement
-audio.play().catch(err => {
-    console.error('Erreur lors de la lecture audio :', err);
-});
-
-// Barre d'information
-const infoBar = document.getElementById('info-bar');
-const closeBarBtn = document.getElementById('close-bar');
-
-// Fermeture de la barre avec mémorisation
-closeBarBtn.addEventListener('click', () => {
-    infoBar.classList.add('hidden');
-    localStorage.setItem('infoBarClosed', 'true');
-});
-
-// Récupérer l'état de la barre au chargement
-if (localStorage.getItem('infoBarClosed') === 'true') {
-    infoBar.classList.add('hidden');
+// Afficher la pop-up une seule fois
+function showPopup() {
+    // Vérifier si l'utilisateur a déjà vu la pop-up grâce au localStorage
+    const hasSeenPopup = localStorage.getItem('hasSeenPopup');
+    if (!hasSeenPopup && window.innerWidth > 768) { // Afficher si la taille de l'écran est suffisamment grande
+        popup.style.display = 'block'; // Afficher la pop-up
+        localStorage.setItem('hasSeenPopup', 'true'); // Enregistrer que l'utilisateur a vu la pop-up
+    }
 }
+
+// Fermer la pop-up
+function closePopup() {
+    popup.style.display = 'none'; // Cacher la pop-up
+}
+
+// Obtenir une image aléatoire parmi les 30 images disponibles
+function getRandomImage() {
+    const randomNumber = Math.floor(Math.random() * TOTAL_IMAGES) + 1; // Choisir un nombre aléatoire entre 1 et 30
+    return `img/image${randomNumber}.jpg`; // Retourner l'URL de l'image
+}
+
+// Changer l'image du carrousel avec une transition en fondu
+function changeImages() {
+    const newImage = getRandomImage(); // Obtenir une nouvelle image
+    background.style.opacity = 0; // Diminuer l'opacité de l'image de fond
+    foreground.style.opacity = 0; // Diminuer l'opacité de l'image au premier plan
+
+    setTimeout(() => {
+        // Après 2 secondes, mettre à jour les images
+        background.style.backgroundImage = `url(${newImage})`;
+        foreground.src = newImage;
+        background.style.opacity = 1; // Augmenter l'opacité de l'image de fond
+        foreground.style.opacity = 1; // Augmenter l'opacité de l'image au premier plan
+    }, 2000); // La transition dure 2 secondes
+}
+
+// Initialiser le carrousel avec une image aléatoire
+function initCarousel() {
+    const initialImage = getRandomImage(); // Obtenir une image aléatoire pour démarrer
+    background.style.backgroundImage = `url(${initialImage})`;
+    foreground.src = initialImage;
+    setInterval(changeImages, 5000); // Changer l'image toutes les 5 secondes
+}
+
+// Activer la musique après une interaction utilisateur
+function enableAudio() {
+    audio.play(); // Lancer la musique en boucle
+}
+
+// Au chargement de la page
+window.onload = () => {
+    enableFullscreen(); // Activer le plein écran
+    initCarousel(); // Initialiser le carrousel
+    showPopup(); // Afficher la pop-up si nécessaire
+
+    // Lancer la musique après un clic de l'utilisateur
+    document.addEventListener('click', enableAudio, { once: true });
+};

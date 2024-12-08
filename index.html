@@ -1,33 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIGEONNNNNNNNNNNNNN</title>
+    <title>Pigon.Pinou007.fr</title>
+    <!-- Ajout des polices Archivo Black et Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Barre d'information moderne -->
-    <div id="info-bar" class="visible">
-        <div class="info-bar-content">
-            <img id="qr-code" src="img/qrcode.png" alt="QR Code">
-            <div class="info-bar-text">
-                <strong>PROFITEZ DES SUPERBES PIGEONS PARTOUT !</strong> <br>
-                Téléchargez l'application pour smartphone Android pour voir ces superbes oiseaux partout où vous allez sur https://l.pinou007.fr/pigonApplication.
+    <!-- Conteneur principal du carrousel d'images -->
+    <div id="carousel">
+        <div class="background"></div> <!-- Image de fond floue -->
+        <img class="foreground" src="" alt="Foreground Image"> <!-- Image au premier plan non floue -->
+    </div>
+
+    <!-- Pop-up promotionnelle -->
+    <div id="popup">
+        <div class="popup-content">
+            <!-- Image QR Code à gauche -->
+            <div class="popup-left">
+                <img src="img/qrcode.png" alt="QR Code">
             </div>
-            <button id="close-bar">Fermer</button>
+            <!-- Contenu textuel à droite -->
+            <div class="popup-right">
+                <h2>Profitez de l'expérience où que vous soyez !</h2>
+                <p>
+                    Vous adorez les pigeons ? Téléchargez l'application n°1 des fans de pigeons 
+                    et vivez cette passion où que vous soyez ! Que vous soyez en train de nourrir des pigeons 
+                    ou simplement dans le métro, plongez dans cette expérience unique.
+                </p>
+                <div class="buttons">
+                    <!-- Bouton principal : Lien pour télécharger l'application -->
+                    <a class="btn-primary" href="https://l.pinou007.fr/pigonApplication" target="_blank">
+                        Téléchargez pour mobile
+                    </a>
+                    <!-- Bouton secondaire : Fermer la pop-up -->
+                    <button class="btn-secondary" onclick="closePopup()">Fermer</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Lecture audio -->
-    <audio id="background-audio" loop autoplay>
-        <source src="https://pinou007.fr/doc/song/pigon.mp3" type="audio/mpeg">
-        Votre navigateur ne supporte pas la lecture audio.
-    </audio>
+    <!-- Musique de fond -->
+    <audio id="backgroundMusic" src="https://pinou007.fr/doc/song/pigon.mp3" loop></audio>
 
-    <!-- Conteneur pour les animations -->
-    <div id="animation-container"></div>
-
+    <!-- Inclusion du script JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIGEONNNNNNNNNNNNNN</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Barre d'information moderne -->
+    <div id="info-bar" class="visible">
+        <div class="info-bar-content">
+            <img id="qr-code" src="img/qrcode.png" alt="QR Code">
+            <div class="info-bar-text">
+                <strong>PROFITEZ DES SUPERBES PIGEONS PARTOUT !</strong> <br>
+                Téléchargez l'application pour smartphone Android pour voir ces superbes oiseaux partout où vous allez sur https://l.pinou007.fr/pigonApplication.
+            </div>
+            <button id="close-bar">Fermer</button>
+        </div>
+    </div>
+
+    <!-- Bouton pour activer la musique si nécessaire -->
+    <button id="play-audio">Jouer la musique</button>
+
+    <!-- Lecture audio -->
+    <audio id="background-audio" loop>
+        <source src="https://pinou007.fr/doc/song/pigon.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas la lecture audio.
+    </audio>
+
+    <!-- Conteneur pour les animations -->
+    <div id="animation-container"></div>
+
+    <script>
+        // Référence à l'élément audio
+        const audio = document.getElementById('background-audio');
+        const playButton = document.getElementById('play-audio');
+
+        // Essayer de jouer automatiquement la musique
+        document.addEventListener('DOMContentLoaded', () => {
+            audio.play().catch(() => {
+                // Si l'autoplay échoue, afficher le bouton pour démarrer la musique
+                playButton.style.display = 'block';
+            });
+        });
+
+        // Lecture de la musique sur clic du bouton
+        playButton.addEventListener('click', () => {
+            audio.play()
+                .then(() => {
+                    playButton.style.display = 'none'; // Masquer le bouton si la lecture est réussie
+                })
+                .catch(error => {
+                    console.error("Erreur lors de la lecture de l'audio : ", error);
+                });
+        });
+    </script>
+</body>
+</html>
