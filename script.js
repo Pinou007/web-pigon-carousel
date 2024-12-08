@@ -1,6 +1,6 @@
 // Initialisation du conteneur et des images
 const container = document.getElementById('animation-container');
-const images = Array.from({ length: 13 }, (_, i) => `img/image${i + 1}.jpg`);
+const images = Array.from({ length: 30 }, (_, i) => `img/image${i + 1}.jpg`);
 let currentImageIndex = -1;
 
 // Fonction pour afficher une image avec une animation aléatoire
